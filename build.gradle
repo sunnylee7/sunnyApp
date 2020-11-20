@@ -1,0 +1,48 @@
+//의존성 관리를 위한 코드
+buildscript{
+    ext { //build.gradle에서 사용하는 전역변수를 설정
+        springBootVersion = '2.1.7.RELEASE'
+        //springBootVersion:전역변수
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        //spring-boot-gradle-plugin : 스프링부트 그레이들 플러그인의 2.1.7.RELEASE를 의존성으로 받겠다는 뜻
+    }
+}
+//선언한 플러그인 의존성들을 적용할 것인지를 결정하는 코드
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management' //스프링 부트의 의존성들을 관리해주는 플러그인이므로 꼭 추가해야 한다.
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+//plugins {
+//    id 'java'
+//}
+
+group 'org.sunny'
+version '1.0-SNAPSHOT'
+sourceCompatibility=1.8
+//
+//repositories {
+//    mavenCentral()
+//}
+
+//dependencies {
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+//}
+//repositories는 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을 지를 정함. -> 기본적으로는 maveCentral을 많이 사용. 최근은 라이브러리 업로드 난이도 때문에jcenter도 많이 사용
+//compile은 메소드 안에 라이브러리의 이름의 앞부분만 추가한 뒤 자동완성하면 해당 라이브러리들의 목록을 볼 수 있음
+//의존성 코드 만들때는특정 버전을 명시하면 안 됨
